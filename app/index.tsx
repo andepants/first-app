@@ -1,13 +1,33 @@
 import { Text, View } from "react-native";
-import { Redirect, router } from 'expo-router';
+import { router, Redirect } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, Image } from 'react-native';
 import CustomButton from '../components/CustomButton';
+import React, { useEffect, useState } from'react';
 
 import { images } from '../constants';
+import { User, onAuthStateChanged } from "firebase/auth";
+import { FIREBASE_AUTH } from "@/FirebaseConfig";
 
 export default function App() {
+
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      console.log('user in useEffect onAuthStateChange', user);
+      if (user) {
+        console.log('yes')
+      } else {
+        console.log('no')
+      }
+      setUser(user);
+    });
+  }, []);
+
+  if (user) return (<Redirect href='/home' />)
+
   return (
     <SafeAreaView className='bg-primary h-full'>
       <ScrollView contentContainerStyle={{ height: '100%' }}>
