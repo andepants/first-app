@@ -39,3 +39,6 @@ expo-env.d.ts
 package-lock.json
 
 FirebaseConfig.ts
+
+android
+ios

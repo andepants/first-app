@@ -15,7 +15,7 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      onAuthStateChanged(FIREBASE_AUTH, (user) => {
       console.log('user in useEffect onAuthStateChange', user);
       if (user) {
         console.log('yes')
@@ -25,8 +25,6 @@ export default function App() {
       setUser(user);
     });
   }, []);
-
-  if (user) return (<Redirect href='/home' />)
 
   return (
     <SafeAreaView className='bg-primary h-full'>
